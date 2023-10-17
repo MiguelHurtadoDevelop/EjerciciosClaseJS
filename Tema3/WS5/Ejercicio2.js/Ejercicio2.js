@@ -22,13 +22,17 @@ class BookList{
    
 
     finishCurrentBook(){
-        this.Books[this.currentBook].Read = true;
-        this.Books[this.currentBook].ReadDate = new Date(Date.now());
-        this.BooksRead++;
-        this.BooksRead--;
-        this.currentBook = this.nextBook;
-        this.nextBook = this.currentBook + 1;
-        this.lastBook = this.currentBook ;
+        if (this.currentBook >= 0 && this.currentBook < this.Books.length) {
+            this.Books[this.currentBook].Read = true;
+            this.Books[this.currentBook].ReadDate = new Date(Date.now());
+            this.BooksRead++;
+            this.BooksRead--;
+            this.currentBook = this.nextBook;
+            this.nextBook = this.currentBook + 1;
+            this.lastBook = this.currentBook ;
+        } else {
+            console.log("No current book to finish.");
+        }
 
     }
 
