@@ -133,7 +133,7 @@ class Puzle{
     }
 
     dibujar(tablero) {
-        // Imprime el tablero en la consola
+       
         console.log("Tablero:");
         for (let i = 0; i < tablero.length; i++) {
             console.log(tablero[i].join("\t"));
@@ -142,7 +142,7 @@ class Puzle{
     
     
     sonIguales(tablero1, tablero2) {
-        // Compara si dos tableros son iguales
+       
         for (let i = 0; i < tablero1.length; i++) {
             for (let j = 0; j < tablero1[i].length; j++) {
                 if (tablero1[i][j] !== tablero2[i][j]) {
@@ -157,39 +157,36 @@ class Puzle{
     
 
     pedirDireccion() {
-        // Pide al usuario la dirección del movimiento
+
         const direccion = prompt("Ingresa la dirección del movimiento (arriba/abajo/izquierda/derecha):");
         return direccion.toLowerCase();
     }
 
     jugar() {
-        // Clonamos el tablero barajado para no afectar el original
+
         var tableroActual = this.tableroBarajado.map(row => [...row]);
         var tiempoInicial = new Date();
 
         let movimientos = 0;
 
         while (!this.sonIguales(this.solucion, tableroActual)) {
-            console.clear(); // Limpia la consola en cada iteración para mantener la interfaz más limpia
+            console.clear(); 
 
-            // Muestra el tablero actual
             this.dibujar(tableroActual);
             
-            // Pide al usuario la dirección del movimiento
             const direccion = this.pedirDireccion();
             
-            // Realiza el movimiento
             this.moverSegunDireccion(direccion);
             movimientos++;
 
-            // Clonamos el tablero actual para no afectar el original
+            
             tableroActual = this.tableroBarajado.map(row => [...row]);
         }
 
         tiempoFinal = new Date();
-        tiempoTranscurrido = (tiempoFinal - tiempoInicial) / 1000; // En segundos
+        tiempoTranscurrido = (tiempoFinal - tiempoInicial) / 1000; 
 
-        console.clear(); // Limpia la consola para mostrar el tablero final
+        console.clear(); 
         this.dibujar(this.tableroBarajado);
         console.log(`¡Has resuelto el puzle en ${movimientos} movimientos y ${tiempoTranscurrido} segundos!`);
     }
