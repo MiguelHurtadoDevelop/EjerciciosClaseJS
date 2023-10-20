@@ -8,13 +8,13 @@ por supuesto que sea un movimiento valido.
 3. Debe llevarse un control del tiempo m nimo para resolverlo, as como el n mero de í í ú
 movimientos realizados.
 4. Los tableros se generar n aleatoriamente. á
-5. Implementar s un m todo dibujar() que imprimir en pantalla el tablero para poder á é á
+5. Implementar un metodo dibujar() que imprimir en pantalla el tablero para poder 
 ser probado.*/
 
 
 class Puzle{
 
-    posicionBlanco = Array();
+    
 
     constructor(dimension){
         this.dimension = dimension;
@@ -40,7 +40,7 @@ class Puzle{
             for(let j=0; j < tablero.length;j++){
                 if(i==tablero.length-1 && j==tablero.length-1){
                     tablero[i][j] = null;
-                    BLANCO = i,j;
+                    
                 }else{
                     tablero[i][j] =numero;
                 }
@@ -52,26 +52,151 @@ class Puzle{
         return tablero;
     }
     
-    buscarBlanco(tablero){
-        for(let i = 0; i < tablero.length;i++){
+    barajar(solucion){
+        var tableroBarajado = this.solucion.map(row => [...row]);
+        var numeroAleatorio;
+        var aux;
+        for(let i = 0; i < tableroBarajado.length;i++){
 
-            for(let j=0; j < tablero.length;j++){
-                if(tablero[i][j]==null){
-                    this.posicionBlanco[0]=i;
-                    this.posicionBlanco[1]=j;
-                    return this.posicionBlanco
+            for(let j=0; j < tableroBarajado.length;j++){
+                numeroAleatorio = Math.floor(Math.random() * (tableroBarajado.length));
+                aux = tableroBarajado[i][j];
+                tableroBarajado[i][j] = tableroBarajado[numeroAleatorio][numeroAleatorio];
+                tableroBarajado[numeroAleatorio][numeroAleatorio] = aux;
+            }
+        }
+        return tableroBarajado;
+
+    }
+            
+    buscarBlanco(tableroBarajado){
+        var posicionBlanco = new Array(2);
+        for(let i = 0; i < tableroBarajado.length;i++){
+
+            for(let j=0; j < tableroBarajado.length;j++){
+                if(tableroBarajado[i][j] == null){
+                    posicionBlanco[0] = i;
+                    posicionBlanco[1] = j;
                 }
             }
         }
-        return this.posicionBlanco
+        return posicionBlanco;
     }
     
     
+    
 
+    moverArriba() {
+        if (this.posicionBlanco[0] > 0) {
+            this.tableroBarajado[this.posicionBlanco[0]][this.posicionBlanco[1]] = this.tableroBarajado[this.posicionBlanco[0] - 1][this.posicionBlanco[1]];
+            this.tableroBarajado[this.posicionBlanco[0] - 1][this.posicionBlanco[1]] = null;
+            this.posicionBlanco[0] = this.posicionBlanco[0] - 1;
+        }
+    }
+    
+    moverAbajo() {
+        if (this.posicionBlanco[0] < this.tableroBarajado.length - 1) {
+            this.tableroBarajado[this.posicionBlanco[0]][this.posicionBlanco[1]] = this.tableroBarajado[this.posicionBlanco[0] + 1][this.posicionBlanco[1]];
+            this.tableroBarajado[this.posicionBlanco[0] + 1][this.posicionBlanco[1]] = null;
+            this.posicionBlanco[0] = this.posicionBlanco[0] + 1;
+        }
+    }
+    
+    moverIzquierda() {
+        if (this.posicionBlanco[1] > 0) {
+            this.tableroBarajado[this.posicionBlanco[0]][this.posicionBlanco[1]] = this.tableroBarajado[this.posicionBlanco[0]][this.posicionBlanco[1] - 1];
+            this.tableroBarajado[this.posicionBlanco[0]][this.posicionBlanco[1] - 1] = null;
+            this.posicionBlanco[1] = this.posicionBlanco[1] - 1;
+        }
+    }
+    
+    moverDerecha() {
+        if (this.posicionBlanco[1] < this.tableroBarajado.length - 1) {
+            this.tableroBarajado[this.posicionBlanco[0]][this.posicionBlanco[1]] = this.tableroBarajado[this.posicionBlanco[0]][this.posicionBlanco[1] + 1];
+            this.tableroBarajado[this.posicionBlanco[0]][this.posicionBlanco[1] + 1] = null;
+            this.posicionBlanco[1] = this.posicionBlanco[1] + 1;
+        }
+    }
+
+    moverSegunDireccion(direccion) {
+        if (direccion === "arriba") {
+            this.moverArriba();
+        } else if (direccion === "abajo") {
+            this.moverAbajo();
+        } else if (direccion === "izquierda") {
+            this.moverIzquierda();
+        } else if (direccion === "derecha") {
+            this.moverDerecha();
+        } else {
+            console.log("Dirección no válida");
+        }
+    }
+
+    dibujar(tablero) {
+        // Imprime el tablero en la consola
+        console.log("Tablero:");
+        for (let i = 0; i < tablero.length; i++) {
+            console.log(tablero[i].join("\t"));
+        }
+    }
+    
+    
+    sonIguales(tablero1, tablero2) {
+        // Compara si dos tableros son iguales
+        for (let i = 0; i < tablero1.length; i++) {
+            for (let j = 0; j < tablero1[i].length; j++) {
+                if (tablero1[i][j] !== tablero2[i][j]) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    
+    
+
+    pedirDireccion() {
+        // Pide al usuario la dirección del movimiento
+        const direccion = prompt("Ingresa la dirección del movimiento (arriba/abajo/izquierda/derecha):");
+        return direccion.toLowerCase();
+    }
+
+    jugar() {
+        // Clonamos el tablero barajado para no afectar el original
+        var tableroActual = this.tableroBarajado.map(row => [...row]);
+        var tiempoInicial = new Date();
+
+        let movimientos = 0;
+
+        while (!this.sonIguales(this.solucion, tableroActual)) {
+            console.clear(); // Limpia la consola en cada iteración para mantener la interfaz más limpia
+
+            // Muestra el tablero actual
+            this.dibujar(tableroActual);
+            
+            // Pide al usuario la dirección del movimiento
+            const direccion = this.pedirDireccion();
+            
+            // Realiza el movimiento
+            this.moverSegunDireccion(direccion);
+            movimientos++;
+
+            // Clonamos el tablero actual para no afectar el original
+            tableroActual = this.tableroBarajado.map(row => [...row]);
+        }
+
+        tiempoFinal = new Date();
+        tiempoTranscurrido = (tiempoFinal - tiempoInicial) / 1000; // En segundos
+
+        console.clear(); // Limpia la consola para mostrar el tablero final
+        this.dibujar(this.tableroBarajado);
+        console.log(`¡Has resuelto el puzle en ${movimientos} movimientos y ${tiempoTranscurrido} segundos!`);
+    }
     
 
     
     
 }
 Puzle=new Puzle(3);
-console.log(Puzle.dibujar());
+console.log(Puzle.jugar());
