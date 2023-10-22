@@ -5,16 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="Ejercicio4.js"></script>
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+        td {
+            width: 10px;
+            height: 10px;
+            border: 1px solid #ccc;
+        }
+    </style>
 </head>
 <body>
-   <p>sklajdfhlkasdgfsa
-    asdfasdfasdfasgdfkjasfdkjagsdfkjgasf
-    asdf,asjgfkjasdfkadshfkjasgkjfdgalsjkdflasddfas
-    dfaskjfdkjasdhflabsfjkashljfgasjdfas
-    fdlaskjdgflasjkdhgkasjhdfkjlsadfkjlasdf
-    asdñfkhasdjfasñdjfkasgdfñalsdghfaedf
-    sdafkjasgdfkjsadfashgfa
-   </p>
-
-</body>
+    <button>Borrar todo</button>
+    <table id="myTable"></table>
+    <script>
+        const table = document.getElementById('myTable');
+        for (let i = 0; i < 100; i++) {
+            const row = table.insertRow();
+            for (let j = 0; j < 100; j++) {
+                const cell = row.insertCell();
+            }
+        }
+    </script>
 </html>
