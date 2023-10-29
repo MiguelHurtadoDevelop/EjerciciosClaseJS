@@ -34,6 +34,8 @@ let contadorErrores = 0;
       document.getElementById("errorNombre").innerHTML = "El nombre no es válido.";
       contadorErrores++;
       return false;
+    }else{
+      document.getElementById("errorNombre").innerHTML = "";
     }
 
     return true;
@@ -48,6 +50,9 @@ let contadorErrores = 0;
         contadorErrores++;
       return false;
     }
+    else{
+      document.getElementById("errorApellidos").innerHTML = "";
+    }
 
     return true;
   }
@@ -60,6 +65,8 @@ let contadorErrores = 0;
         document.getElementById("errorDNI").innerHTML = "El DNI no es válido.";
         contadorErrores++;
       return false;
+    }else{
+      document.getElementById("errorDNI").innerHTML = "";
     }
 
     return true;
@@ -73,7 +80,10 @@ let contadorErrores = 0;
         document.getElementById("errorTelefono").innerHTML = "El teléfono no es válido.";
         contadorErrores++;
       return false;
+    }else{
+      document.getElementById("errorTelefono").innerHTML = "";
     }
+
 
     return true;
   }
@@ -86,6 +96,8 @@ let contadorErrores = 0;
             document.getElementById("errorEmail").innerHTML = "El email no es válido.";
             contadorErrores++;
         return false;
+        }else{
+          document.getElementById("errorEmail").innerHTML = "";
         }
     
         return true;
@@ -93,17 +105,19 @@ let contadorErrores = 0;
 
     function validarUsuario(){
         const usuario = document.getElementById("usuario").value;
-        const usuarioRegex = /^[a-zA-Z0-9]+$/;
+        const usuarioRegex = /^(?=.*[0-9])(?=.*[!@#$%^&*.])[a-zA-Z0-9!@#$%^&*.]{8,}$/;
     
         if (!usuarioRegex.test(usuario)) {
             document.getElementById("errorUsuario").innerHTML = "El usuario no es válido.";
             contadorErrores++;
         return false;
+        }else{
+          document.getElementById("errorUsuario").innerHTML = "";
         }
     
         return true;
     }
-    function validarFormulario() {
+    function validarFormulario(event) {
       contadorErrores = 0; // Reinicia el contador de errores
       // Llama a todas las funciones de validación para asegurarte de que se ejecuten
       validarNombre();
@@ -112,12 +126,15 @@ let contadorErrores = 0;
       validarTelefono();
       validarEmail();
       validarUsuario();
-      console.log(  contadorErrores);
+      console.log(contadorErrores);
       // Si contadorErrores es mayor que cero, el formulario no se envía
       if (contadorErrores > 0) {
         console.log("Hay errores");
         // Si hay errores, muestra un mensaje en "erroresGenerales"
         document.getElementById("erroresGenerales").innerHTML = "Por favor, corrija los errores antes de enviar el formulario.";
-        evt.preventDefault(); // Evita el envío del formulario
+        event.preventDefault();
+        
+
     }
+    
   }

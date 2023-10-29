@@ -1,0 +1,47 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(255, 156, 181);
+    margin: 0;
+    
+}
+form{
+    position: relative;
+    margin-top: 20%;
+}
+input {
+    border: 0;
+    border-bottom: 3px solid rgb(245, 236, 134);
+    background-color:rgb(255, 156, 181);
+    margin: 0;
+}
+input::placeholder {
+    text-align: center;
+    color:rgb(245, 236, 134);
+}
+ul{
+    color:rgb(245, 236, 134);
+}
+button{
+    background-color: rgb(245, 236, 134);
+    color:rgb(255, 156, 181);
+    border: 0;
+    padding:5px 30px 5px 30px;
+    border-radius: 5%;
+}
+input,
+ul,
+button {
+    font-size: 155%; 
+}
+
+#usuario {
+    display: block;
+    margin: 0 auto;
+}
+
+#enviar {
+    display: block;
+    margin: 0 auto;
+}
