@@ -19,6 +19,13 @@ window.onload = function () {
     const usuario = document.getElementById("usuario");
     usuario.addEventListener("blur", validarUsuario);
 
+    const Contraseña = document.getElementById("Contraseña");
+    Contraseña.addEventListener("blur", validarContrasena);
+
+    const confirmarContraseña = document.getElementById("confirmarContraseña");
+    confirmarContraseña.addEventListener("blur", validarConfirmarContrasena);
+
+
     const enviar = document.getElementById("enviar");
     enviar.addEventListener("click", validarFormulario);
     
@@ -117,24 +124,66 @@ let contadorErrores = 0;
     
         return true;
     }
-    function validarFormulario(event) {
-      contadorErrores = 0; // Reinicia el contador de errores
-      // Llama a todas las funciones de validación para asegurarte de que se ejecuten
-      validarNombre();
-      validarApellidos();
-      validarDNI();
-      validarTelefono();
-      validarEmail();
-      validarUsuario();
-      console.log(contadorErrores);
-      // Si contadorErrores es mayor que cero, el formulario no se envía
-      if (contadorErrores > 0) {
-        console.log("Hay errores");
-        // Si hay errores, muestra un mensaje en "erroresGenerales"
-        document.getElementById("erroresGenerales").innerHTML = "Por favor, corrija los errores antes de enviar el formulario.";
-        event.preventDefault();
-        
 
-    }
-    
+    function validarContraseña() {
+      const Contraseña = document.getElementById("Contraseña").value;
+      const ContraseñaRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*]).{8,}$/;
+  
+      if (!ContraseñaRegex.test(Contraseña)) {
+          document.getElementById("errorContraseña").innerHTML = "La contraseña no cumple con los requisitos.";
+          contadorErrores++;
+          return false;
+      } else {
+          document.getElementById("errorContraseña").innerHTML = "";
+      }
+  
+      return true;
   }
+
+  function validarConfirmarContraseña() {
+    const Contraseña = document.getElementById("Contraseña").value;
+    const confirmarContraseña = document.getElementById("confirmarContraseña").value;
+
+    if (Contraseña !== confirmarContraseña) {
+        document.getElementById("errorConfirmarContraseña").innerHTML = "Las contraseñas no coinciden.";
+        contadorErrores++;
+        return false;
+    } else {
+        document.getElementById("errorConfirmarContraseña").innerHTML = "";
+    }
+
+    return true;
+}
+function validarTyc() {
+  const checkboxTyc = document.getElementById("TyC");
+
+  if (!checkboxTyc.checked) {
+      document.getElementById("errorTyC").innerHTML = "Debes aceptar los Términos y Condiciones.";
+      contadorErrores++;
+      return false;
+  } else {
+      document.getElementById("errorTyC").innerHTML = "";
+  }
+
+  return true;
+}
+
+function validarFormulario(event) {
+  contadorErrores = 0; // Reinicia el contador de errores
+
+  validarNombre();
+  validarApellidos();
+  validarDNI();
+  validarTelefono();
+  validarEmail();
+  validarUsuario();
+  validarContraseña();
+  validarConfirmarContraseña();
+  validarTyc();
+
+  // Si contadorErrores es mayor que cero, el formulario no se envía
+  if (contadorErrores > 0) {
+      document.getElementById("erroresGenerales").innerHTML = "Por favor, corrija los errores antes de enviar el formulario.";
+      event.preventDefault();
+  }
+}
