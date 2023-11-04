@@ -1,0 +1,65 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    color: #333;
+}
+
+h3 {
+    color: #777;
+}
+
+#buttons {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+button {
+    background-color: #007BFF;
+    color: #fff;
+    font-size: 16px;
+    padding: 10px 20px;
+    margin: 5px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+#solucion {
+    font-size: 24px;
+    margin: 20px 0;
+    font-weight: bold;
+}
+
+#mensaje {
+    color: red;
+    font-size: 20px;
+    margin-top: 10px;
+}
+
+#jugarDeNuevo {
+    background-color: #4CAF50;
+    color: #fff;
+    font-size: 16px;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    display: none;
+}
+
+#jugarDeNuevo:hover {
+    background-color: #45a049;
+}
+
