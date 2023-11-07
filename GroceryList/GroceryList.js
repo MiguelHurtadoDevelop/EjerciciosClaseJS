@@ -35,10 +35,10 @@ function mostrarProductos(product) {
 
     
     var editar = document.createElement("button");
-    editar.innerHTML= "<img src='img/libro.png'></img>";
+    editar.innerHTML= "<img src='img/edit.png'></img>";
     
     editar.addEventListener("click", function() {
-        li.innerHTML = "<input type='text'  id='product'> <button class='editar' type='submit'>Editar </button>";
+        li.innerHTML = "<input type='text' value="+product+" id='product'> <button class='editar' type='submit'>Editar </button>";
     });
     
     li.appendChild(editar);
@@ -60,9 +60,9 @@ function mostrarProductos(product) {
 function editarProducto(li) {
     var product = li.firstChild.value;
     li.innerHTML = product;
-    
+
     var editar = document.createElement("button");
-    editar.innerHTML= "<img src='img/libro.png'></img>";
+    editar.innerHTML= "<img src='img/edit.png'></img>";
     
     editar.addEventListener("click", function() {
         li.innerHTML = "<input type='text' value='' id='product'> <button class='editar' type='submit'>Editar </button>";
