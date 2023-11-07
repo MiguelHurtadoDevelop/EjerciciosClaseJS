@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+    svg {
+          background-color: black;
+          width: 1000px;
+          height: 600px;
+          border: 1px solid #fff;
+     }
+        #ball {
+            fill: white;
+        }
+        #paddle1 {
+            fill: white;
+        }
+        #paddle2 {
+            fill: white;
+        }
+    </style>
+</head>
+<body>
+    <svg id="pongSVG" >
+        <!-- Pala izquierda -->
+        <rect id="paddle1" x="10" y="150" width="10" height="100"  />
+        
+        <!-- Pala derecha -->
+        <rect id="paddle2" x="980" y="150" width="10" height="100"  />
+        
+        <!-- Pelota -->
+        <circle id="ball" cx="400" cy="200" r="10" />
+    </svg>
+
+    <script>
+        const svg = document.getElementById("pongSVG");
+        const paddle1 = document.getElementById("paddle1");
+        const paddle2 = document.getElementById("paddle2");
+        const ball = document.getElementById("ball");
+
+        let paddle1Y = 150;
+        let paddle2Y = 350;
+        let ballX = 400;
+        let ballY = 200;
+        let ballSpeedX = 4;
+        let ballSpeedY = 3;
+
+        // Mover las paletas
+        function movePaddles(e) {
+            const mouseY = e.clientY - svg.getBoundingClientRect().top;
+            paddle1Y = mouseY - 50;
+        }
+
+        // Dibujar todo en el SVG
+        function draw() {
+            paddle1.setAttribute("y", paddle1Y);
+            paddle2.setAttribute("y", paddle2Y);
+            ball.setAttribute("cx", ballX);
+            ball.setAttribute("cy", ballY);
+        }
+
+        // Mover la pelota
+        function moveBall() {
+            ballX += ballSpeedX;
+            ballY += ballSpeedY;
+
+            // Colisión con las paletas
+            if (
+                (ballX < 20 && ballY > paddle1Y && ballY < paddle1Y + 100) ||
+                (ballX > 970 && ballY > paddle2Y && ballY < paddle2Y + 100)
+            ) {
+                ballSpeedX = -ballSpeedX;
+            }
+
+            // Colisión con los bordes superior e inferior
+            if (ballY < 0 || ballY > 590) {
+                ballSpeedY = -ballSpeedY;
+            }
+        }
+
+        // Función de actualización del juego
+        function update() {
+            moveBall();
+            draw();
+        }
+
+        // Bucle de juego
+        function gameLoop() {
+            update();
+            requestAnimationFrame(gameLoop);
+        }
+
+        // Inicializar el juego
+        svg.addEventListener("mousemove", movePaddles);
+        gameLoop();
+    </script>
+</body>
+</html>
