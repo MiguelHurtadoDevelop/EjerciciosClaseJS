@@ -1,0 +1,95 @@
+<html>
+  <head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+    setInterval(drawChart, 1000);
+      function drawChart() {
+
+        var data = google.visualization.arrayToDataTable([
+          ['Partidos', 'Escaños',{ role: 'style' }],
+          ['PP', 200,'color:blue'],
+          ['PSOE', 122,'color:red'],
+          ['Sumar',  31,'color:purple'],
+          ['VOX', 33,'color:green'],
+        
+        ]);
+
+        var options = {
+          title: 'My Daily Activities'
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+        chart.draw(data, options);
+      }
+    </script>
+    <script type="text/javascript">
+        google.charts.load("current", {packages:["corechart"]});
+        google.charts.setOnLoadCallback(drawChart);
+        function drawChart() {
+          var data = google.visualization.arrayToDataTable([
+            ["Partidos", "Escaños", { role: "style" } ],
+            ['PP', 136,'color:blue'],
+            ['PSOE', 122,'color:red'],
+            ['Sumar',  31,'color:purple'],
+            ['VOX', 33,'color:green'],
+          ]);
+    
+          var view = new google.visualization.DataView(data);
+          view.setColumns([0, 1,
+                           { calc: "stringify",
+                             sourceColumn: 1,
+                             type: "string",
+                             role: "annotation" },
+                           2]);
+    
+          var options = {
+            title: "Density of Precious Metals, in g/cm^3",
+            width: 600,
+            height: 400,
+            bar: {groupWidth: "95%"},
+            legend: { position: "none" },
+          };
+          var chart = new google.visualization.BarChart(document.getElementById("barchart_values"));
+          chart.draw(view, options);
+      }
+      </script>
+      <script type="text/javascript">
+        google.charts.load('current', {
+          'packages':['geochart'],
+        });
+        google.charts.setOnLoadCallback(drawRegionsMap);
+  
+        function drawRegionsMap() {
+          var data = google.visualization.arrayToDataTable([
+            ['Country', 'Popularity'],
+            ['France', 54000000],
+            ['Mexico', 36000000],
+            ['Spain', 31700000],
+            ['Turkey', 29900000],
+            ['Italy', 26300000],
+            ['United States', 22100000],
+            ['Greece', 14700000],
+            ['Austria', 12700000],
+            ['Germany', 11700000]
+       
+          ]);
+  
+          var options = {};
+  
+          var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
+  
+          chart.draw(data, options);
+        }
+      </script>
+    
+  </head>
+  <body>
+    
+    <div id="barchart_values" style="width: 900px; height: 300px;"></div>
+    <div id="piechart" style="width: 900px; height: 500px;"></div>
+    <div id="regions_div" style="width: 900px; height: 500px;"></div>
+  </body>
+</html>
