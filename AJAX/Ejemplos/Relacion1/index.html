@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Selección de Ubicación</title>
+</head>
+<body>
+
+  <label for="comunidad">Comunidad Autónoma:</label>
+  <select id="comunidad">
+  </select>
+
+  <br>
+
+  <label for="provincia">Provincia:</label>
+  <select id="provincia">
+  </select>
+
+  <br>
+
+  <label for="municipio">Municipio:</label>
+  <select id="municipio">
+  </select>
+
+  <script>
+    // Cargar comunidades al cargar la página
+    window.onload = () => {
+      loadComunidades();
+    }
+
+    geoapiKey = "b7b3d1f31f328c070ef1fb97e250ba4281baee7944a2105f6b4dd136c73cf3f4";
+
+    function loadComunidades() {
+      var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                console.log(this.responseText)
+                this.respondeText.forEach(element => {
+                    
+                });
+                document.getElementById("comunidad").innerHTML = this.responseText;
+            }
+        };
+        xhttp.open("GET", 'https://apiv1.geoapi.es/comunidades?key=' + geoapiKey, true);
+        xhttp.send();
+    }
+
+    function loadProvincias() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("provincia").innerHTML = this.responseText;
+            }
+        };
+        xhttp.open("GET", 'https://apiv1.geoapi.es/provincias?CCOM=' + comunidadId + '&key=' + apiKey, true);
+        xhttp.send();
+    }
+
+    function loadMunicipios() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("municipio").innerHTML = this.responseText;
+            }
+        };
+        xhttp.open("GET", 'https://apiv1.geoapi.es/' + provinciaId + '/municipios?key=' + apiKey, true);
+        xhttp.send();
+    }
+
+
+
+
+
+
+    function loadWeather() {
+      var municipioId = document.getElementById('municipio').value;
+      var apiKey = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJwYWJsb3ZhY2FzZ2FyY2lhQGdtYWlsLmNvbSIsImp0aSI6IjY5YmFmYjJkLTU0NjYtNDdhMC1iMWM4LTE1MjA1YzllYTQwOSIsImlzcyI6IkFFTUVUIiwiaWF0IjoxNzAwNTE4MTc3LCJ1c2VySWQiOiI2OWJhZmIyZC01NDY2LTQ3YTAtYjFjOC0xNTIwNWM5ZWE0MDkiLCJyb2xlIjoiIn0.TuKG2F064_qsNuJOAXqAO687vsAWbRAYUmTE4hrHFeA';
+
+      // Obtener el enlace a la información meteorológica utilizando la clave API
+      fetch('https://opendata.aemet.es/opendata/api/prediccion/especifica/municipio/' + municipioId + '/?api_key=' + apiKey)
+        .then(response => response.json())
+        .then(data => {
+          // El enlace proporcionado se encuentra en data.datos
+          // Realizar otra solicitud para obtener la información meteorológica
+          return fetch(data.datos);
+        })
+        .then(response => response.json())
+        .then(weatherData => displayWeather(weatherData))
+        .catch(error => console.error('Error obteniendo datos meteorológicos:', error));
+    }
+
+    function displayWeather(weatherData) {
+      // Aquí puedes manejar y mostrar la información meteorológica en tu página
+      console.log(weatherData);
+    }
+  </script>
+
+</body>
+</html>
