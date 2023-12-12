@@ -126,10 +126,11 @@ createApp({
         this.toDoList = this.toDoList.filter(tarea => !tarea.Completada);
         localStorage.setItem("ListaTareas", JSON.stringify(this.toDoList));
         },
-        mounted(){
-            ListaTareas = JSON.parse(localStorage.getItem("ListaTareas"));
+    },
+        mounted() {
+            this.toDoList = JSON.parse(localStorage.getItem("ListaTareas")) || [];
         }
-        }).mount('#app')
+    }).mount('#app')
     </script>
 </body>
 </html>
