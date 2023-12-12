@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body>
+    <div id="juego">
+        <input type="checkbox" v-model="check" >
+        <ul>
+            <li v-for="n in numerosPares">{{ n }}</li>
+        </ul>
+        
+        
+    </div>
+    <script>
+        const { createApp } = Vue
+        
+        createApp({
+          data() {
+            return {
+                numbers: [1,2,3,4,5],
+                check: false
+            }
+          },
+          methods: {
+            mostrarSoloPares() {
+                if(this.check){
+                    return this.numbers.filter((number) => number % 2 == 1);
+                }else{
+                    return [1,2,3,4,5];
+                }
+
+            }
+          },
+          computed:{
+            numerosPares(){
+                if(this.check){
+                    return this.numbers.filter((number) => number % 2 == 0);
+                }else{
+                    return [1,2,3,4,5];
+                
+                }
+                
+            }
+          }
+        }).mount('#juego')
+      </script>
+    
+</body>
+</html>

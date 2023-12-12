@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body>
+    
+    <div id="app">
+        <!--Dos formas de poner variablesen html-->
+        <span v-html="message"></span>
+         {{ message }}
+        <h1>{{titulo}}</h1>
+        <br>
+        <br>
+        Su nombre es: <span>{{nombre}}</span>
+        <p>
+            <button v-on:click="cambiarNombre()">Cambiar Nombre</button>
+            <input type="text" v-model="nombre">
+        </p>
+    </div>
+
+<script>
+  const { createApp } = Vue
+
+  createApp({
+    data() {
+      return {
+        message: '<b>primer ejemplo y me la pela!    </b>',
+        titulo: 'ñañañañañañaña',
+        nombre: 'Miguel'
+      }
+    },
+    methods: {
+      cambiarNombre() {
+        console.log(this.nombre)
+      }
+    }
+  }).mount('#app')
+</script>
+</body>
+</html>
